@@ -83,7 +83,12 @@ module Autolab3
       "<div class=\"field_with_errors has-error\">#{html_tag}</div>".html_safe
     }
 
-    # Handle HTTP 404/500/etc. pages with Rails routing
-    config.exceptions_app = self.routes
+    config.middleware.swap(
+      ActionDispatch::ShowExceptions,
+      ActionDispatch::ShowExceptions,
+      ActionDispatch::PublicExceptions.new(
+        Rails.root.join('public/assets')
+      )
+    )
   end
 end
