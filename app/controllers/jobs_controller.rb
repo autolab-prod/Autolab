@@ -194,7 +194,6 @@ class JobsController < ApplicationController
     # Determine whether to expose the job name.
     if !@cud.user.administrator?  then
       if !@cud.instructor? then
-        print "!INSTRUCTOR"
         # Students can see only their own job names
         if !job[:name][@cud.user.email] then
           job[:name] = "*"
